@@ -1,5 +1,5 @@
-export interface FormData {
+export interface Article {
     title: string;
-    desc: string;
+    content: string;
     dateCreated: string;
 }

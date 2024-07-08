@@ -1,21 +1,20 @@
 import React, { FC, useEffect, useState } from "react";
 import TextField from '@mui/material/TextField';
 import { Button, Modal, TextareaAutosize } from '@mui/base';
-import { FormData } from "../types";
+import { Article, addArticle } from "../api/mockApi";
 
 interface AddArticleProps {
     open: boolean;
-    edit?: boolean;
-    formDataEdit?: FormData;
-    articleAdded: (formData: FormData) => void;
 }
 
-const AddArticle:FC<AddArticleProps> = ({open, edit, formDataEdit, articleAdded}) => {
+const AddArticle:FC<AddArticleProps> = ({open}) => {
 
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState<Article>({
+        id: "",
         title: "",
-        desc: "",
-        dateCreated: ""
+        content: "",
+        dateCreated: "",
+        tags: [],
     })
 
     const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -26,29 +25,27 @@ const AddArticle:FC<AddArticleProps> = ({open, edit, formDataEdit, articleAdded}
         });
     }
 
-    const submitArticle = (e: React.FormEvent<HTMLFormElement>) => {
+    const submitArticle = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const currentDate = new Date().toLocaleDateString( "en-US", { year: 'numeric', month: 'long', day: 'numeric' });
-        articleAdded({
+        const newArticle = {
             ...formData,
             dateCreated: currentDate
-        });
+        };
+        await addArticle(newArticle);
+        alert('Article added successfully');
         setFormData({
+            id: "",
             title: "",
-            desc: "",
-            dateCreated: ""
+            content: "",
+            dateCreated: "",
+            tags: [],
         });
     }
 
     const handleClose = () => {
 
     }
-
-    useEffect(() => {
-        if (edit && formDataEdit) {
-            setFormData({...formDataEdit});
-        }
-    },[]);
 
     return (
         <Modal
@@ -69,10 +66,10 @@ const AddArticle:FC<AddArticleProps> = ({open, edit, formDataEdit, articleAdded}
                 <div>
                     <label>Description</label>
                     <TextareaAutosize 
-                        name="desc" 
+                        name="content" 
                         minRows={3} 
                         onChange={handleInput} 
-                        value={formData.desc} />
+                        value={formData.content} />
                 </div>
                 <Button type="submit">Publish</Button>
             </form>
