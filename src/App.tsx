@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
-import AddArticle from './pages/AddArticle';
-import EditArticle from './pages/EditArticle';
+import AddArticle from './pages/AddArticlePage';
+import EditArticle from './pages/EditArticlePage';
+import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './context/AuthContext';
+import LoginPage from './pages/LoginPage'; 
 
-const App = () => {
+const App:FC = () => {
 
   return (
-    <>
+    <AuthProvider>
       <Router>
-        <div>
-          <Routes>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/add-article" element={<AddArticle />} />
             <Route path="/edit-article/:id" element={<EditArticle />} />
-          </Routes>
-        </div>
+          </Route>
+        </Routes>
     </Router>
-    </>
+    </AuthProvider>
   );
 }
 
