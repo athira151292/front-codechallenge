@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchArticles } from '../redux/articles/articlesThunks';
-import AddArticle from '../components/AddArticle';
 import ArticleItem from '../components/ArticleItem';
 import { useNavigate } from 'react-router-dom';
 
