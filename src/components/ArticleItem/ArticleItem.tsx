@@ -42,7 +42,7 @@ const ArticleItem:FC<ArticleProps> = ({article}) => {
 
     return (
         <>
-            <ListItem key={article.id}>
+            <ListItem key={article.id} data-testid="list-item">
                 <div>
                     <h1>{article.title}</h1>
                     <p>{article.content}</p>
@@ -52,8 +52,8 @@ const ArticleItem:FC<ArticleProps> = ({article}) => {
                     ))}
                 </div>
                 <div>
-                    <ActionButton onClick={handleEdit} title="Edit"><EditIcon></EditIcon></ActionButton>
-                    <ActionButton onClick={handleDelete} title="Delete"><DeleteIcon></DeleteIcon></ActionButton>
+                    <ActionButton onClick={handleEdit} title="Edit" data-testid="edit-button"><EditIcon></EditIcon></ActionButton>
+                    <ActionButton onClick={handleDelete} title="Delete" data-testid="delete-button"><DeleteIcon></DeleteIcon></ActionButton>
                 </div>
             </ListItem>
             <ConfirmationModal 

@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
             <ul>
                 {articles.map(article => {
                     return (
-                        <ArticleItem key={article.id} article={article} data-testid="list-item"></ArticleItem>
+                        <ArticleItem key={article.id} article={article}></ArticleItem>
                     )
                 })}
             </ul>

@@ -12,7 +12,7 @@ const App:FC = () => {
 
   return (
     <AuthProvider>
-      <Header></Header>
+      <Header data-testid="header"></Header>
       <Container>
         <Router>
           <Routes>

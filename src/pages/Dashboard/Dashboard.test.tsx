@@ -1,71 +1,91 @@
-// src/pages/Dashboard.test.tsx
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { configureStore } from '@reduxjs/toolkit';
+import { BrowserRouter } from 'react-router-dom';
 import Dashboard from './Dashboard';
-import  { EnhancedStore } from '@reduxjs/toolkit';
-import articlesReducer, { Article } from '../../redux/articles/articlesSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { fetchArticles } from '../../redux/articles/articlesThunks';
-import { RootState } from '../../app/store';
+import { useNavigate } from 'react-router-dom';
+import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 
-jest.mock('../redux/articles/articlesThunks', () => ({
-  fetchArticles: jest.fn(() => async (dispatch: any) => {
-    dispatch({
-      type: 'articles/fetchArticles/fulfilled',
-      payload: [
-        { id: 1, title: 'Article 1', content: 'Content 1', dateCreated: '2023-01-01', tags: ['tag1'] },
-        { id: 2, title: 'Article 2', content: 'Content 2', dateCreated: '2023-01-02', tags: ['tag2'] },
-      ],
-    });
-  }),
+jest.mock('../../app/hooks', () => ({
+    useAppDispatch: jest.fn(),
+    useAppSelector: jest.fn(),
 }));
 
-const initialState = {
-  articles: {
-    articles: [],
-    loading: false,
-    error: null,
-  },
-};
+jest.mock('../../redux/articles/articlesThunks', () => ({
+    fetchArticles: jest.fn(),
+}));
 
-describe('Dashboard Component', () => {
-  let store: EnhancedStore<RootState>;;
+const mockDispatch = jest.fn() as jest.MockedFunction<Dispatch<AnyAction>>;
+const mockNavigate = jest.fn() as jest.MockedFunction<ReturnType<typeof useNavigate>>;
 
-  beforeEach(() => {
-    store = configureStore({
-      reducer: {
-        articles: articlesReducer,
-      },
-      middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-      preloadedState: initialState,
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => mockNavigate,
+}));
+
+describe('Dashboard', () => {
+    beforeEach(() => {
+        (useAppDispatch as unknown as jest.Mock).mockReturnValue(mockDispatch);
+        (useAppSelector as unknown as jest.Mock).mockReturnValue({
+            articles: [
+                {
+                    id: 1,
+                    dateCreated: '2024-07-09',
+                    title: 'First Article',
+                    content: 'This is the content of the first article',
+                    tags: ['tag1'],
+                },
+                {
+                    id: 2,
+                    dateCreated: '2024-07-10',
+                    title: 'Second Article',
+                    content: 'This is the content of the second article',
+                    tags: ['tag2'],
+                },
+            ],
+        });
     });
-  });
 
-  test('renders articles and add article button', () => {
-    render(
-      <Provider store={store}>
-        <Router>
-          <Dashboard />
-        </Router>
-      </Provider>
-    );
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
 
-    expect(screen.getByText('Dashboard')).toBeInTheDocument();
-    expect(screen.getByText('Add article')).toBeInTheDocument();
-  });
+    test('should render the Dashboard and articles', () => {
+        render(
+            <BrowserRouter>
+                <Dashboard />
+            </BrowserRouter>
+        );
 
-  test('navigates to add article page on button click', () => {
-    render(
-      <Provider store={store}>
-        <Router>
-          <Dashboard />
-        </Router>
-      </Provider>
-    );
+        const addButton = screen.getByRole('button', { name: /add article/i });
+        expect(addButton).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText('Add article'));
-    expect(window.location.pathname).toBe('/add-article');
-  });
+        const articles = screen.getAllByTestId('list-item');
+        expect(articles).toHaveLength(2);
+    });
+
+    test('should navigate to add-article page on button click', () => {
+        render(
+            <BrowserRouter>
+                <Dashboard />
+            </BrowserRouter>
+        );
+
+        const addButton = screen.getByRole('button', { name: /add article/i });
+
+        fireEvent.click(addButton);
+
+        expect(mockNavigate).toHaveBeenCalledWith('/add-article');
+    });
+
+    test('should dispatch fetchArticles on component mount', () => {
+        render(
+            <BrowserRouter>
+                <Dashboard />
+            </BrowserRouter>
+        );
+
+        expect(mockDispatch).toHaveBeenCalledWith(fetchArticles());
+    });
 });

@@ -81,22 +81,26 @@ const ArticleForm:FC<ArticleFormProps> = ({article}) => {
     return (
         <Form onSubmit={submitArticle}>
             <InputGroup>
-                <RequiredLabel>Title</RequiredLabel>
+                <RequiredLabel aria-labelledby="title">Title</RequiredLabel>
                 <TextField 
                     variant="outlined" 
                     name="title" 
+                    id="title"
                     onChange={handleInput} 
                     value={formData?.title}
-                    error={!!errors.title} />
+                    error={!!errors.title}
+                    inputProps={{ "data-testid": "title-input" }} />
             </InputGroup>
             <InputGroup>
-                <RequiredLabel>Description</RequiredLabel>
+                <RequiredLabel aria-labelledby="content">Description</RequiredLabel>
                 <TextareaAutosize 
                     name="content" 
+                    id="content"
                     minRows={3} 
                     onChange={handleInput} 
                     value={formData?.content}
-                    style={{ borderColor: errors.content ? '#b62906' : undefined }} />
+                    style={{ borderColor: errors.content ? '#b62906' : undefined }}
+                    data-testid="content-input" />
             </InputGroup>
             <InputGroup>
                 <label>Tags</label>
@@ -107,7 +111,7 @@ const ArticleForm:FC<ArticleFormProps> = ({article}) => {
                     value={formData.tags.map(tag => ({ value: tag, label: tag }))}
                 />
             </InputGroup>
-            <Button type="submit" variant="contained">Publish</Button>
+            <Button type="submit" variant="contained" data-testid="publish-button">Publish</Button>
         </Form>
     );
 }

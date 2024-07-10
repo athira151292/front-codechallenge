@@ -15,7 +15,7 @@ const LoginPage: React.FC = () => {
 
     return (
         <LoginPageWrap>
-            <Button variant="contained" onClick={handleLogin}>Login</Button>
+            <Button variant="contained" onClick={handleLogin} data-testid="login-button">Login</Button>
         </LoginPageWrap>
     );
 };

@@ -33,8 +33,8 @@ const ConfirmationModal:FC<ConfirmationModalProps> = ({open, modalContent, actio
         <Box sx={style}>
           {modalContent}
           <ModalButtons>
-            <Button onClick={() => actionConfirmed(false)} variant="contained">No</Button>
-            <Button onClick={() => actionConfirmed(true)} variant="contained">Yes</Button>
+            <Button onClick={() => actionConfirmed(false)} variant="contained" data-testid="no-button">No</Button>
+            <Button onClick={() => actionConfirmed(true)} variant="contained" data-testid="yes-button">Yes</Button>
           </ModalButtons>
         </Box>
       </Modal>
