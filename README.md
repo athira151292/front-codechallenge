@@ -1,8 +1,11 @@
+### article_management_system
+
+An article management system using React and TypeScript
+
+
 # Running the Project
 
 ## Prerequisites
-
-Node.js: Ensure you have Node.js installed. This project requires Node.js version 14.x or higher. You can download and install the latest version of Node.js from nodejs.org.
 
 Node.js: Ensure you have Node.js installed. This project requires Node.js version 14.x or higher. You can download and install the latest version of Node.js from nodejs.org.
 
