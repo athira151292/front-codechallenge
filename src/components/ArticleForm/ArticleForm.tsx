@@ -37,7 +37,6 @@ const ArticleForm:FC<ArticleFormProps> = ({article}) => {
     }
 
     const handleTagsChange = (selectedOptions: { value: string; label: string; }[]) => {
-        console.log('Selected Options:', selectedOptions);
         const tags = selectedOptions.map(option => option.value);
         setFormData({
             ...formData,
