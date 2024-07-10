@@ -14,18 +14,19 @@ export const ListItem = styled.li`
 `;
 
 export const DateCreated = styled.span`
-  color: #6B6B6B;
-`
+  color: #6b6b6b;
+`;
 
-export const Tag = styled.div`
-  color: #6B6B6B;
+export const Tag = styled.span`
+  color: #6b6b6b;
   margin-top: 10px;
+  margin-right: 10px;
   border-radius: 14px;
   font-size: 12px;
-`
+`;
 
 export const ActionButton = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
-`
+`;
