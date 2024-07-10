@@ -14,3 +14,10 @@ export const Form = styled.form`
   width: 60%;
   margin: 0 auto;
 `
+
+export const RequiredLabel = styled.label`
+  &::after {
+    content: "*";
+    color: #b62906;
+  }
+`
