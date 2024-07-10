@@ -1,6 +1,8 @@
 import React from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { LoginPageWrap } from './LoginPage.styles';
 
 const LoginPage: React.FC = () => {
     const { login } = useAuth();
@@ -12,10 +14,9 @@ const LoginPage: React.FC = () => {
     };
 
     return (
-        <div>
-            <h1>Login Page</h1>
-            <button onClick={handleLogin}>Login</button>
-        </div>
+        <LoginPageWrap>
+            <Button variant="contained" onClick={handleLogin}>Login</Button>
+        </LoginPageWrap>
     );
 };
 

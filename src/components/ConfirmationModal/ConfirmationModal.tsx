@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import { Button } from '@mui/material';
+import { ModalButtons } from './ConfirmationModal.styles';
 
 const style = {
   position: 'absolute',
@@ -21,24 +23,19 @@ interface ConfirmationModalProps {
 
 const ConfirmationModal:FC<ConfirmationModalProps> = ({open, modalContent, actionConfirmed}) => {
 
-  const handleClose = () => {
-
-  }
-
   return (
     <div>
       <Modal
         open={open}
-        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           {modalContent}
-          <div>
-            <button onClick={() => actionConfirmed(false)}>No</button>
-            <button onClick={() => actionConfirmed(true)}>Yes</button>
-          </div>
+          <ModalButtons>
+            <Button onClick={() => actionConfirmed(false)} variant="contained">No</Button>
+            <Button onClick={() => actionConfirmed(true)} variant="contained">Yes</Button>
+          </ModalButtons>
         </Box>
       </Modal>
     </div>

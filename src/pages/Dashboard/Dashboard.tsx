@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { fetchArticles } from '../redux/articles/articlesThunks';
-import ArticleItem from '../components/ArticleItem';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { fetchArticles } from '../../redux/articles/articlesThunks';
+import ArticleItem from '../../components/ArticleItem/ArticleItem';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { ButtonWrap, DashboardWrap } from './Dashboard.styles';
 
 const Dashboard: React.FC = () => {
 
@@ -19,17 +21,18 @@ const Dashboard: React.FC = () => {
       }, [dispatch]);
 
     return (
-        <div>
-            <h1>Dashboard</h1>
-            <button onClick={addArticle}>Add article</button>
+        <DashboardWrap>
+            <ButtonWrap>
+                <Button variant="contained" onClick={addArticle}>Add article</Button>
+            </ButtonWrap>
             <ul>
                 {articles.map(article => {
                     return (
-                        <ArticleItem article={article}></ArticleItem>
+                        <ArticleItem key={article.id} article={article} data-testid="list-item"></ArticleItem>
                     )
                 })}
             </ul>
-        </div>
+        </DashboardWrap>
     );
 };
 

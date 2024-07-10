@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchArticleDetails } from '../redux/articles/articlesThunks';
-import ArticleForm from '../components/ArticleForm';
+import ArticleForm from '../components/ArticleForm/ArticleForm';
 import { Article } from '../redux/articles/articlesSlice';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 

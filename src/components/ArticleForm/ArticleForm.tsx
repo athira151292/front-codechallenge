@@ -1,10 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
 import TextField from '@mui/material/TextField';
-import { Button, TextareaAutosize } from '@mui/base';
-import { addArticle, editArticle} from "../redux/articles/articlesThunks";
-import { Article } from "../redux/articles/articlesSlice";
-import { useAppDispatch } from "../app/hooks";
+import { Button, TextareaAutosize } from '@mui/material';
+import { addArticle, editArticle} from "../../redux/articles/articlesThunks";
+import { Article } from "../../redux/articles/articlesSlice";
+import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
+import CreatableSelect from 'react-select/creatable';
+import { tagOptions } from "../../constants";
+import { InputGroup, Form } from "./ArticleForm.styles";
 
 interface ArticleFormProps {
     article?: Article;
@@ -29,6 +32,15 @@ const ArticleForm:FC<ArticleFormProps> = ({article}) => {
         setFormData({
             ...formData,
             [name]: value
+        });
+    }
+
+    const handleTagsChange = (selectedOptions: { value: string; label: string; }[]) => {
+        console.log('Selected Options:', selectedOptions);
+        const tags = selectedOptions.map(option => option.value);
+        setFormData({
+            ...formData,
+            tags: tags
         });
     }
 
@@ -57,25 +69,34 @@ const ArticleForm:FC<ArticleFormProps> = ({article}) => {
     }, [article]);
 
     return (
-        <form onSubmit={submitArticle}>
-            <div>
+        <Form onSubmit={submitArticle}>
+            <InputGroup>
                 <label>Title</label>
                 <TextField 
                     variant="outlined" 
                     name="title" 
                     onChange={handleInput} 
                     value={formData?.title} />
-            </div>
-            <div>
+            </InputGroup>
+            <InputGroup>
                 <label>Description</label>
                 <TextareaAutosize 
                     name="content" 
                     minRows={3} 
                     onChange={handleInput} 
                     value={formData?.content} />
-            </div>
-            <Button type="submit">Publish</Button>
-        </form>
+            </InputGroup>
+            <InputGroup>
+                <label>Tags</label>
+                <CreatableSelect
+                    isMulti
+                    onChange={() => handleTagsChange}
+                    options={tagOptions}
+                    value={formData.tags.map(tag => ({ value: tag, label: tag }))}
+                />
+            </InputGroup>
+            <Button type="submit" variant="contained">Publish</Button>
+        </Form>
     );
 }
 

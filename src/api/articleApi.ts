@@ -1,8 +1,8 @@
 import { Article } from "../redux/articles/articlesSlice";
 
 let articles: Article[] = [
-  { id: 1, dateCreated: '2024-07-09', title: 'First Article', content: 'This is the content of the first article', tags: ["tag1"] },
-  { id: 2, dateCreated: '2024-07-10', title: 'Second Article', content: 'This is the content of the second article',  tags: ["tag1"] },
+  { id: 1, dateCreated: 'July 4, 2024', title: 'First Article', content: 'This is the content of the first article', tags: ["Technology"] },
+  { id: 2, dateCreated: 'July 5, 2024', title: 'Second Article', content: 'This is the content of the second article',  tags: ["Travel"] },
 ];
 
 export const fetchArticlesApi = async () => {
