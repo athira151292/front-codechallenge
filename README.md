@@ -1,52 +1,38 @@
-# Frond End Developer - Code Challenge
+### article_management_system
 
-As a front-end developer, you must do a code challenge. You have 3 options:
+An article management system using React and TypeScript
 
-- Do task 1 (Article Management System).
-- OR do task 2 (Data Table Component).
 
-Depending on your choice and the result we evaluate your expertise and seniority.
+# Running the Project
 
-## Task 1
+## Prerequisites
 
-Develop a dashboard to manage articles with these rules:
+Node.js: Ensure you have Node.js installed. This project requires Node.js version 14.x or higher. You can download and install the latest version of Node.js from nodejs.org.
 
-- There is no API. You have to mock the API in a separate layer in the code. So, we can replace it with a real API without touching other parts of your code.
-- The edit page and Delete confirmation dialog need to be included.
-- You must check user mistakes on filling in forms (like email address, required fields, etc.).
-- Protected pages should not be available for guest users.
-- Wysiwyg editor is not required.
-- Tags field is a combobox which you can select some tags or use custom tags.
-- Design them based on your assumption
+## Package Manager: 
+This project uses npm (Node Package Manager), which comes with Node.js. Alternatively, you can use yarn.
 
-## Task 2
+## Setup Instructions
+Clone the Repository:
 
-Write a data table component with these features:
+`git clone git@github.com:athira151292/article_management_system.git`
+`cd article-management-system`
 
-- Support TypeScript.
-- Support pagination.
-- Support page size.
-- Support simple search (so we can just type a query and filter rows).
-- Support column customization.
-- Support sort fields.
-- Support dark mode.
-- Write some examples to show your component’s features.
+Install Dependencies:
 
-## General Requirements
+`npm install`
 
-- Use ReactJS
-- Write necessary tests, but not with high coverage.
-- Remove all unused codes if you use a boilerplate or framework.
-- Write an instruction to run the project.
-- All pages and components should be responsive.
-- Do anything else that can impress us, but don’t overwork.
-- You should use a linter like PrettierJS or any others.
-- Don’t commit the .vscode or .idea directory.
-- Mention the required NodeJS version
-  
-### Deliverables for the Code Challenge
-- Code and Documentation: Include all code and documentation necessary to reproduce the experiments and results.
-  
-### Submission
-- Please submit a GitHub link with your work and fork the repository for collaboration.
-- You have 1 week to send the challenge!
+`npm start`
+
+This will start the development server and open the application in your default web browser. If it doesn't, you can access it by navigating to http://localhost:3000.
+
+Run Tests:
+To run the test cases, use the following command:
+
+`npm run test`
+
+Build for Production:
+To create a production build of the project, run:
+
+`npm run build`
+
